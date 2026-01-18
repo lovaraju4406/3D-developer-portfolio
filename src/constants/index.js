@@ -176,7 +176,7 @@ const projects = [
     ],
     image: portfolio,
     source_code_link:
-      "https://github.com/lovaraju4406/project_3D_developer_portfolio-main",
+      "https://github.com/lovaraju4406/3D-developer-portfolio.git",
   },
 ];
 

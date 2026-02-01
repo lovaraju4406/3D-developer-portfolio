@@ -3,7 +3,8 @@
 A modern, responsive **3D Developer Portfolio** built with **React, Vite, Three.js, and Tailwind CSS**, showcasing my skills, projects, and experience with smooth animations and interactive 3D elements.
 
 🔗 **Live Demo:**  
-https://3-d-developer-portfolio-ruby.vercel.app
+https://3-d-developer-portfolio-2b5w90jp3.vercel.app
+
 
 ---
 
@@ -98,4 +99,5 @@ Build command: npm run build
 Output directory: dist
 
 🔗 Live URL:
-https://3-d-developer-portfolio-ruby.vercel.app
+https://3-d-developer-portfolio-2b5w90jp3.vercel.app
+

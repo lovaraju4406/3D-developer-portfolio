@@ -1,5 +1,5 @@
 import React from "react";
-import Tilt from "react-tilt";
+import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
@@ -22,7 +22,10 @@ const ProjectCard = ({
       className="h-full"
     >
       <Tilt
-        options={{ max: 45, scale: 1, speed: 450 }}
+        tiltMaxAngleX={30}
+        tiltMaxAngleY={30}
+        scale={1.03}
+        transitionSpeed={400}
         className="bg-tertiary p-5 rounded-2xl h-full flex flex-col"
       >
         {/* IMAGE */}
@@ -51,12 +54,10 @@ const ProjectCard = ({
         <div className="mt-4 flex flex-col flex-grow">
           <h3 className="text-white font-bold text-[20px]">{name}</h3>
 
-          {/* FIXED DESCRIPTION HEIGHT */}
           <p className="mt-2 text-secondary text-[13px] leading-relaxed line-clamp-3">
             {description}
           </p>
 
-          {/* TAGS STAY AT BOTTOM */}
           <div className="mt-auto flex flex-wrap gap-2 pt-4">
             {tags.map((tag) => (
               <p
@@ -91,7 +92,6 @@ const Works = () => {
         </motion.p>
       </div>
 
-      {/* GRID */}
       <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />

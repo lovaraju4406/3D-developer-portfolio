@@ -1,5 +1,5 @@
 import React from "react";
-import Tilt from "react-tilt";
+import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
@@ -8,7 +8,13 @@ import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 
 const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className="xs:w-[250px] w-full">
+  <Tilt
+    tiltMaxAngleX={25}
+    tiltMaxAngleY={25}
+    scale={1.05}
+    transitionSpeed={400}
+    className="xs:w-[250px] w-full"
+  >
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
       className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
@@ -44,12 +50,10 @@ const About = () => {
         full-stack web applications, backend systems, and data-driven solutions.
         I work with technologies such as JavaScript, React, Node.js, MongoDB,
         SQL, and cloud-ready architectures to design efficient, scalable, and
-        maintainable software. I enjoy solving real-world problems, learning
-        new technologies quickly, and delivering high-quality solutions through
-        clean code and thoughtful design.
+        maintainable software.
       </motion.p>
 
-      {/* ✅ RESUME BUTTON */}
+      {/* RESUME BUTTON */}
       <div className="mt-8 flex justify-center">
         <a
           href="/resume.pdf"
@@ -60,7 +64,7 @@ const About = () => {
         </a>
       </div>
 
-      {/* ✅ SERVICES (FIXED VISIBILITY) */}
+      {/* SERVICES */}
       <div className="relative z-10 mt-20 flex flex-wrap gap-10 justify-center">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />

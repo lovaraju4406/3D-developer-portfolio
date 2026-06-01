@@ -4,7 +4,6 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import { motion } from "framer-motion";
-
 import "react-vertical-timeline-component/style.min.css";
 
 import { styles } from "../styles";
@@ -16,40 +15,48 @@ const ExperienceCard = ({ experience }) => {
   return (
     <VerticalTimelineElement
       contentStyle={{
-        background: "#1d1836",
-        color: "#fff",
+        background: "#FFFFFF",
+        color: "#1C1917",
+        boxShadow: "0px 6px 30px -8px rgba(124, 58, 237, 0.15)",
+        border: "1px solid #EDE8DE",
+        borderRadius: "16px",
       }}
-      contentArrowStyle={{ borderRight: "7px solid  #232631" }}
+      contentArrowStyle={{ borderRight: "7px solid #EDE8DE" }}
       date={experience.date}
-      iconStyle={{ background: experience.iconBg }}
+      dateClassName='text-secondary font-medium text-[13px]'
+      iconStyle={{
+        background: experience.iconBg,
+        boxShadow: "0 0 0 4px #EDE9FE, 0 2px 12px rgba(124,58,237,0.2)",
+      }}
       icon={
-        <div className="flex justify-center items-center w-full h-full rounded-full overflow-hidden">
+        <div className='flex justify-center items-center w-full h-full rounded-full overflow-hidden p-1'>
           <img
             src={experience.icon}
             alt={experience.company_name}
-            className="w-full h-full object-contain rounded-full"
+            className='w-full h-full object-contain rounded-full'
           />
         </div>
       }
     >
       <div>
-        <h3 className="text-white text-[24px] font-bold">
+        <h3 className='text-white-100 text-[20px] font-bold leading-snug'>
           {experience.title}
         </h3>
         <p
-          className="text-secondary text-[16px] font-semibold"
-          style={{ margin: 0 }}
+          className='text-accent text-[14px] font-semibold mt-1'
+          style={{ margin: "4px 0 0" }}
         >
           {experience.company_name}
         </p>
       </div>
 
-      <ul className="mt-5 list-disc ml-5 space-y-2">
+      <ul className='mt-5 list-none space-y-2'>
         {experience.points.map((point, index) => (
           <li
             key={`experience-point-${index}`}
-            className="text-white-100 text-[14px] pl-1 tracking-wider"
+            className='text-secondary text-[13px] leading-relaxed flex gap-2'
           >
+            <span className='text-accent mt-1 flex-shrink-0'>▸</span>
             {point}
           </li>
         ))}
@@ -70,13 +77,10 @@ const Experience = () => {
         </h2>
       </motion.div>
 
-      <div className="mt-20 flex flex-col">
-        <VerticalTimeline>
+      <div className='mt-16 flex flex-col'>
+        <VerticalTimeline lineColor='#DDD5F3'>
           {experiences.map((experience, index) => (
-            <ExperienceCard
-              key={`experience-${index}`}
-              experience={experience}
-            />
+            <ExperienceCard key={`experience-${index}`} experience={experience} />
           ))}
         </VerticalTimeline>
       </div>

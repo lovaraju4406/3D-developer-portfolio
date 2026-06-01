@@ -4,17 +4,27 @@ import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, Stars
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <div className='relative z-0 bg-primary'>
-        <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
+        {/* Hero Section — light gradient bg replacing dark hero-pattern */}
+        <div className='hero-light-bg'>
           <Navbar />
           <Hero />
         </div>
+
+        {/* Main content sections */}
         <About />
         <Experience />
         <Tech />
         <Works />
         <Feedbacks />
+
+        {/* Contact with subtle star particles */}
         <div className='relative z-0'>
           <Contact />
           <StarsCanvas />
@@ -22,6 +32,6 @@ const App = () => {
       </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

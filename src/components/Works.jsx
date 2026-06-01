@@ -18,54 +18,57 @@ const ProjectCard = ({
 }) => {
   return (
     <motion.div
-      variants={fadeIn("up", "spring", index * 0.5, 0.75)}
-      className="h-full"
+      variants={fadeIn("up", "spring", index * 0.3, 0.75)}
+      className="h-full w-full"
     >
       <Tilt
-        tiltMaxAngleX={30}
-        tiltMaxAngleY={30}
-        scale={1.03}
-        transitionSpeed={400}
-        className="bg-tertiary p-5 rounded-2xl h-full flex flex-col"
+        options={{ max: 12, scale: 1.02, speed: 400 }}
+        className="bg-white rounded-2xl h-full flex flex-col border border-black-200/60 shadow-soft hover:shadow-soft-hover transition-shadow duration-300"
       >
-        {/* IMAGE */}
-        <div className="relative w-full h-[180px]">
+        {/* Project Image */}
+        <div className="relative w-full h-[180px] overflow-hidden rounded-t-2xl">
           <img
             src={image}
-            alt="project_image"
-            className="w-full h-full object-cover rounded-2xl"
+            alt={name}
+            className="w-full h-full object-cover"
           />
 
-          <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
+          {/* GitHub Button */}
+          <div className="absolute inset-0 flex justify-end m-3">
             <div
               onClick={() => window.open(source_code_link, "_blank")}
-              className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
+              className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm flex justify-center items-center cursor-pointer hover:bg-white hover:scale-110 transition-all duration-200 shadow-soft"
             >
               <img
                 src={github}
-                alt="source code"
-                className="w-1/2 h-1/2 object-contain"
+                alt="github"
+                className="w-5 h-5 object-contain"
               />
             </div>
           </div>
         </div>
 
-        {/* CONTENT */}
-        <div className="mt-4 flex flex-col flex-grow">
-          <h3 className="text-white font-bold text-[20px]">{name}</h3>
+        {/* Project Content */}
+        <div className="p-5 flex flex-col flex-grow">
+          <h3 className="text-white-100 font-bold text-[18px] leading-snug text-center">
+            {name}
+          </h3>
 
-          <p className="mt-2 text-secondary text-[13px] leading-relaxed line-clamp-3">
+          <p className="mt-3 text-secondary text-[13px] leading-relaxed text-justify flex-grow">
             {description}
           </p>
 
-          <div className="mt-auto flex flex-wrap gap-2 pt-4">
+          {/* Tags */}
+          <div className="mt-4 flex flex-wrap gap-2 justify-center">
             {tags.map((tag) => (
-              <p
+              <span
                 key={`${name}-${tag.name}`}
-                className={`text-[12px] ${tag.color}`}
+                className="tag-pill"
               >
                 #{tag.name}
-              </p>
+              </span>
             ))}
           </div>
         </div>
@@ -77,24 +80,45 @@ const ProjectCard = ({
 const Works = () => {
   return (
     <>
-      <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>My work</p>
+      {/* Header */}
+      <motion.div
+        variants={textVariant()}
+        className="text-center"
+      >
+        <p className={styles.sectionSubText}>My Work</p>
         <h2 className={styles.sectionHeadText}>Projects.</h2>
       </motion.div>
 
-      <div className="w-full flex">
+      {/* Description */}
+      <div className="w-full flex justify-center">
         <motion.p
           variants={fadeIn("", "", 0.1, 1)}
-          className="mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
+          className="mt-4 text-secondary text-[17px] max-w-4xl leading-[32px] text-justify mx-auto"
         >
-          Following projects showcase my skills and experience through real-world
-          applications and scalable system design.
+          These projects demonstrate my expertise in Full-Stack Development,
+          Software Engineering, System Design, and Problem Solving through the
+          development of scalable, efficient, and user-centric applications.
+          From citizen grievance management systems and professional networking
+          platforms to modern web applications, each project reflects my ability
+          to transform real-world challenges into innovative digital solutions.
+          By leveraging modern technologies, clean architecture, and industry
+          best practices, I focus on building secure, maintainable, and
+          high-performance software that delivers meaningful impact and enhances
+          user experiences.
         </motion.p>
       </div>
 
-      <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      {/* Divider */}
+      <div className="section-divider mt-10 mb-2" />
+
+      {/* Projects Grid */}
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch justify-items-center">
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
+          <ProjectCard
+            key={`project-${index}`}
+            index={index}
+            {...project}
+          />
         ))}
       </div>
     </>

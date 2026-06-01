@@ -7,20 +7,32 @@ import {
   Preload,
   useTexture,
 } from "@react-three/drei";
+import * as THREE from "three";
 
 import CanvasLoader from "../Loader";
 
 const Ball = (props) => {
   const [decal] = useTexture([props.imgUrl]);
 
+  /*
+   * Fix: WebGL "texSubImage2D: bad image data" and "Texture is immutable"
+   * These errors occur when a texture (especially .svg) is uploaded to the GPU
+   * before it is fully decoded, or when Three.js tries to re-upload an already
+   * immutable texture. Setting colorSpace + needsUpdate after load resolves this.
+   */
+  decal.colorSpace = THREE.SRGBColorSpace;
+  decal.minFilter  = THREE.LinearFilter;
+  decal.magFilter  = THREE.LinearFilter;
+  decal.needsUpdate = true;
+
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[0, 0, 0.05]} />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[0, 0, 0.05]} intensity={0.8} />
       <mesh castShadow receiveShadow scale={2.75}>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial
-          color='#fff8eb'
+          color='#EDE9FE'
           polygonOffset
           polygonOffsetFactor={-5}
           flatShading
@@ -42,13 +54,22 @@ const BallCanvas = ({ icon }) => {
     <Canvas
       frameloop='demand'
       dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true }}
+      gl={{
+        preserveDrawingBuffer: true,
+        powerPreference: "high-performance",
+        /*
+         * Fix: antialias + failIfMajorPerformanceCaveat=false prevents
+         * ANGLE/WebGL from switching to a limited context that causes
+         * the "Texture is immutable" GL_INVALID_OPERATION error.
+         */
+        antialias: true,
+        failIfMajorPerformanceCaveat: false,
+      }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} />
         <Ball imgUrl={icon} />
       </Suspense>
-
       <Preload all />
     </Canvas>
   );
